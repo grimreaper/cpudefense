@@ -841,7 +841,9 @@ open class Chip(val network: Network, gridX: Int, gridY: Int):
                     Pair(2.0f, -0.5f),
                     Pair(2.0f, +0.5f),
                     Pair(3.0f, -0.5f),
-                    Pair(3.0f, +0.5f)
+                    Pair(3.0f, +0.5f),
+                    Pair(1.0f, +1.5f),
+                    Pair(2.0f, +1.5f)
             )
             val factorY = 1.6 * rect.height()
             val factorX: Float
@@ -880,10 +882,12 @@ open class Chip(val network: Network, gridX: Int, gridY: Int):
             }
             ChipType.SUB -> {
                 alternatives.add(ChipUpgrades.POWERUP)
+                alternatives.add(ChipUpgrades.POWERUP4)
                 alternatives.add(ChipUpgrades.SELL)
             }
             ChipType.SHR -> {
                 alternatives.add(ChipUpgrades.POWERUP)
+                alternatives.add(ChipUpgrades.POWERUP4)
                 alternatives.add(ChipUpgrades.SELL)
             }
             ChipType.ACC -> {

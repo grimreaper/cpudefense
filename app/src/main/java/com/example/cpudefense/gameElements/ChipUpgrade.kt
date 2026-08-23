@@ -23,18 +23,44 @@ class ChipUpgrade(
     /** the price that must be paid, or the refund (negative) if the type is SELL */
     private var price = calculatePrice()
 
+    /** calculates the price of one upgrade, starting on basevalue.
+     * Used to calculate the cost of single or multiple upgrades.
+      */
+    private fun powerupPrice(startValue: Int): Int
+    {
+        val baseValue =
+            if (chipToUpgrade.chipData.type == Chip.ChipType.MEM) startValue + 12  // MEM updates are really expensive
+            else startValue
+        var upgradePrice = baseValue * 1.5
+        val discount = gameMechanics.heroModifier(Hero.Type.DECREASE_UPGRADE_COST)
+        upgradePrice = upgradePrice * (100f - discount) / 100
+        return upgradePrice.toInt()
+    }
+
+
+    /** calculates the price of n upgrades, starting on basevalue.
+     * Used to calculate the cost of multiple upgrades.
+     */
+    private fun powerupPrice(startValue: Int, times: Int): Int
+    {
+        var newValue = startValue
+        repeat (times)
+        {
+            newValue += powerupPrice(newValue)
+        }
+        return newValue - startValue
+    }
+
     private fun calculatePrice(): Int
     /** calculates and returns the price that must be paid for this upgrade. */
     {
         var penalty = 0 // possible price modification
         when (type){
             Chip.ChipUpgrades.POWERUP -> {
-                var baseValue = chipToUpgrade.chipData.value
-                if (chipToUpgrade.chipData.type == Chip.ChipType.MEM) baseValue += 12  // MEM updates are really expensive
-                var upgradePrice = baseValue * 1.5
-                val discount = gameMechanics.heroModifier(Hero.Type.DECREASE_UPGRADE_COST)
-                upgradePrice = upgradePrice * (100f - discount) / 100
-                return upgradePrice.toInt()
+                return powerupPrice(chipToUpgrade.chipData.value)
+            }
+            Chip.ChipUpgrades.POWERUP4 -> {
+                return powerupPrice(chipToUpgrade.chipData.value, 4)
             }
             Chip.ChipUpgrades.REDUCE -> {
                 val alreadyRemoved = gameMechanics.currentlyActiveStage?.data?.obstaclesRemovedCount ?: 0
