@@ -23,18 +23,22 @@ open class Node(val theNetwork: Network, x: Float, y: Float): GameElement()
     data class Data
         (
         var ident: Int,
+        /** horizontal coordinate on the grid */
         var gridX: Float,
+        /** vertical coordinate on the grid */
         var gridY: Float,
+        /** the distance (in grid coords) that this node can act, e.g. shoot on attackers */
         var range: Float
                 )
 
     var data = Data(ident = -1, gridX = x, gridY = y, range = 0.0f)
     var posOnGrid = Coord(Pair(x,y))
-    var connectedLinks = CopyOnWriteArrayList<Link>() // used during level setup
+    /** used during level setup */
+    var connectedLinks = CopyOnWriteArrayList<Link>()
 
     open var actualRect: Rect? = null
 
-    /** hack: limit list clean-up to improve performance */
+    /** hack: limit list cleanup to improve performance */
     private var ticks = 100
 
     /** keep track of the current distance to the vehicles in range */
@@ -44,6 +48,7 @@ open class Node(val theNetwork: Network, x: Float, y: Float): GameElement()
     val vehiclesDefinitelyGone = mutableListOf<Vehicle>()
     val vehiclesInRange = mutableListOf<Vehicle>()
 
+    /** sets the node on the given grid coordinates and re-calculates the rectangle on the screen */
     fun placeOnGrid(viewport: Viewport, x: Float, y: Float)
     {
         posOnGrid = Coord(x, y)
@@ -75,8 +80,8 @@ open class Node(val theNetwork: Network, x: Float, y: Float): GameElement()
         }
     }
 
-    open fun applyScale(viewport: Viewport)
     /** triggers recalculation of node size */
+    open fun applyScale(viewport: Viewport)
     {
         val sizeOnScreen = theNetwork.distanceBetweenGridPoints(viewport)
         sizeOnScreen?.let {
@@ -88,17 +93,17 @@ open class Node(val theNetwork: Network, x: Float, y: Float): GameElement()
         }
     }
 
+    /** whether the ends of connectors are shown.
+     * @return false if the node itself supersedes the link ends.
+     */
     open fun drawConnectorsOnLinks(): Boolean
-            /** whether the ends of connectors are shown.
-             * @return false if the node itself supersedes the link ends.
-             */
     { return true }
 
+    /** determines the size of this node on the screen based on the grid points.
+     * @return the actual rectangle of the node with correct size and position,
+     * or null if size cannot be determined
+     */
     fun calculateActualRect(viewport: Viewport): Rect?
-            /** determines the size of this node on the screen based on the grid points.
-             * @return the actual rectangle of the node with correct size and position,
-             * or null if size cannot be determined
-             */
     {
         val factor = 3.0f
         val dist = theNetwork.distanceBetweenGridPoints(viewport)
@@ -114,20 +119,20 @@ open class Node(val theNetwork: Network, x: Float, y: Float): GameElement()
         }
     }
 
+    /** called to notify this node that a vehicle is near (i.e., on a link from this node).
+     * @param vehicle The vehicle approaching
+     * @param distance Distance on the link, in grid units. Always positive
+     * @param direction Whether the vehicle approaches or leaves. Use "GONE" to de-subscribe.
+     */
     fun notify(vehicle: Vehicle, distance: Float = 0f, direction: VehicleDirection)
-            /** called to notify this node that a vehicle is near (i.e., on a link from this node).
-             * @param vehicle The vehicle approaching
-             * @param distance Distance on the link, in grid units. Always positive
-             * @param direction Whether the vehicle approaches or leaves. Use "GONE" to de-subscribe.
-             */
     {
         // distanceToVehicle[vehicle]?.let { it.distance = distance; it.direction = direction; return }
         distanceToVehicle[vehicle] = Distance(distance, direction)
     }
 
 
+    /** @return the absolute distance in grid coords to the vehicle (always positive) or null if out of range */
     fun distanceTo(vehicle: Vehicle): Float?
-    /** @return the absolute distance to the vehicle (always positive) or null if out of range */
     {
         if (vehicle.startNode != this && vehicle.endNode != this)
         {
@@ -151,8 +156,8 @@ open class Node(val theNetwork: Network, x: Float, y: Float): GameElement()
         }
     }
 
-    private fun cleanupVehiclesInRange()
     /** remove the vehicles from the list that are already GONE */
+    private fun cleanupVehiclesInRange()
     {
         val hashMap: Map<Vehicle, Distance> = distanceToVehicle.filterValues { it.direction != VehicleDirection.GONE }
         if (hashMap.isNotEmpty())

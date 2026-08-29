@@ -32,7 +32,7 @@ open class Chip(val network: Network, gridX: Int, gridY: Int):
     Node(network, gridX.toFloat(), gridY.toFloat())
 {
     enum class ChipType { EMPTY, SUB, SHR, MEM, ACC, RES, SHL, ADD, NOP, SPLT, DUP, CLK, ENTRY, CPU}
-    enum class ChipUpgrades { POWERUP, REDUCE, SELL, SUB, SHR, MEM, ACC, CLK, RES, POWERUP4, SELL_ALL }
+    enum class ChipUpgrades { POWERUP, REDUCE, SELL, SUB, SHR, MEM, ACC, CLK, RES, MAXOUT }
 
     data class Data(
         /** the principal type of the chip */
@@ -112,16 +112,16 @@ open class Chip(val network: Network, gridX: Int, gridY: Int):
         paintUpgradesBackground.alpha = 240
     }
 
-    fun isRegularSlot(): Boolean
     /** @return true if the chip is neither Entry nor CPU */
+    fun isRegularSlot(): Boolean
     {
         return (chipData.type != ChipType.ENTRY && chipData.type != ChipType.CPU)
     }
 
-    fun markChipAsSold()
     /** marks this chip as sold, but does not remove it directly.
      * Final removal is done after the cooldown expires.
      */
+    fun markChipAsSold()
     {
         with (chipData)
         {
@@ -137,8 +137,8 @@ open class Chip(val network: Network, gridX: Int, gridY: Int):
 
     }
 
-    fun resetToEmptyChip()
     /** called when a sold chip is definitely removed */
+    fun resetToEmptyChip()
     {
         with (chipData)
         {
@@ -519,6 +519,7 @@ open class Chip(val network: Network, gridX: Int, gridY: Int):
         return vehiclesInRange(data.range) as List<Attacker>
     }
 
+    /** Fire! */
     private fun shootAt(attacker: Attacker)
     {
         if (chipData.type == ChipType.EMPTY || chipData.type == ChipType.NOP)
@@ -882,12 +883,14 @@ open class Chip(val network: Network, gridX: Int, gridY: Int):
             }
             ChipType.SUB -> {
                 alternatives.add(ChipUpgrades.POWERUP)
-                alternatives.add(ChipUpgrades.POWERUP4)
+                if (network.gameMechanics.state.cash > 32) // arbitrarily chosen amount, just don't show up when there is no cash
+                    alternatives.add(ChipUpgrades.MAXOUT)
                 alternatives.add(ChipUpgrades.SELL)
             }
             ChipType.SHR -> {
                 alternatives.add(ChipUpgrades.POWERUP)
-                alternatives.add(ChipUpgrades.POWERUP4)
+                if (network.gameMechanics.state.cash > 64)
+                    alternatives.add(ChipUpgrades.MAXOUT)
                 alternatives.add(ChipUpgrades.SELL)
             }
             ChipType.ACC -> {
@@ -940,6 +943,7 @@ open class Chip(val network: Network, gridX: Int, gridY: Int):
         if (chipData.upgradeLevel >= 12)
         {
             alternatives.remove(ChipUpgrades.POWERUP)
+            alternatives.remove(ChipUpgrades.MAXOUT)
         }
         return alternatives
     }
