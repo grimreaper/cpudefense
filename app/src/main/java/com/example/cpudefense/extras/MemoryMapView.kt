@@ -116,7 +116,7 @@ class MemoryMapView @JvmOverloads constructor(context: Context, attrs: Attribute
             stageDataList.forEach {
                 val color = colorOfStage(it.series, it.number)
                 val remaining = memoryBankList[index].createMemTile(it.amount/8, color)
-                if (remaining>0) {
+                if (remaining>0) { // start a new bank
                     index++
                     memoryBankList[index].createMemTile(remaining, color)
                 }
@@ -159,6 +159,7 @@ class MemoryMapView @JvmOverloads constructor(context: Context, attrs: Attribute
         return Pair(varColor, borderColor)
     }
 
+    /** assembles all tiles */
     fun createBitmapFromTiles(): Bitmap? {
         if (width>0 && height>0) {
             val bitmap = createBitmap(width, height)
@@ -191,7 +192,8 @@ class MemoryMapView @JvmOverloads constructor(context: Context, attrs: Attribute
         {
             return bankSize-address
         }
-        
+
+        /** @return true if the bank cannot hold any more tiles */
         fun isFull(): Boolean
         { return remainingWordsInBank()<=0 }
 
@@ -232,6 +234,8 @@ class MemoryMapView @JvmOverloads constructor(context: Context, attrs: Attribute
             }
             // finally, start a new "word" if there is a fraction left
             if (infoRemaining>0) {
+                if (isFull())
+                    return infoRemaining
                 listOfTiles.add(MemTile(this, amount, color, address,
                                         0, infoRemaining))
                 freeBytesRemainingInWord = wordSize - infoRemaining
