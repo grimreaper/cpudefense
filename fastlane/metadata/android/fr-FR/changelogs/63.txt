@@ -1,0 +1,12 @@
+Nouvelles fonctionnalités :
+- Ajout de boutons permettant d'acheter plusieurs puces SUB ou SHR à la fois
+- Nouveau bloc LED sur l'écran d'accueil
+
+Corrections de bugs :
+- Correction des conditions relatives à Margaret Hamilton
+- Correction de la mise en page de la boîte de dialogue « Réinitialiser tous les héros ? »
+- Correction d’un autre petit bug dans la vue des modules de mémoire
+
+Divers :
+- Nouvelle couleur de héros pour Sid Meier. De plus, certaines conditions des héros ont été modifiées et adaptées à la description figurant sur le wiki.
+

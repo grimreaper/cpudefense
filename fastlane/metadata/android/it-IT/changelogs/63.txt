@@ -1,0 +1,12 @@
+Nuove funzionalità:
+- Aggiunti pulsanti per acquistare più chip SUB o SHR contemporaneamente
+- Nuovo blocco LED nella schermata di benvenuto
+
+Correzioni di bug:
+- Corrette le condizioni relative a Margaret Hamilton
+- Corretto il layout della finestra di dialogo “Reimposta tutti gli eroi?”
+- Risolto un altro piccolo errore nella schermata della banca di memoria
+
+Varie:
+- Nuovo colore dell’eroe per Sid Meier. Inoltre, alcune delle condizioni degli eroi sono state modificate e adattate alla descrizione presente nel wiki.
+

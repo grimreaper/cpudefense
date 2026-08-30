@@ -1,0 +1,12 @@
+Neue Funktionen:
+- Schaltflächen hinzugefügt, um mehrere SUB- oder SHR-Chips auf einmal zu kaufen
+- Neuer LED-Block auf dem Begrüßungsschirm
+
+Fehlerbehebungen:
+- Bedingungen für Margaret Hamilton korrigiert
+- Layout für den Dialog „Alle Helden zurücksetzen?“ korrigiert
+- Einen weiteren kleinen Fehler in der Speicherbank-Ansicht behoben
+
+Sonstiges:
+- Neue Heldenfarbe für Sid Meier. Außerdem wurden einige der Bedingungen für die Helden geändert und an die Darstellung im Wiki angepasst.
+

@@ -1,0 +1,11 @@
+New features:
+- added buttons to buy several SUB or SHR chips at once
+- on the welcome screen, added a small LED block indicating the series
+
+Bug fixes:
+- corrected the avialbility constraint for Margaret Hamilton
+- corrected the layout for the "Reset all heroes?" dialogue
+- fixed another small bug in the memory bank view
+
+Miscellaneous:
+- New hero colour for Sid Meier. Also changed some of the hero availability conditions (see game wiki)
