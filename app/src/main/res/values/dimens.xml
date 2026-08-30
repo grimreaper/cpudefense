@@ -13,4 +13,8 @@
     <dimen name="sevensegment_display_height">80dp</dimen>
     <dimen name="button_vertical_spacing">8dp</dimen>
     <dimen name="button_horizontal_margin">24dp</dimen>
+    <dimen name="level_led_width">24dp</dimen>
+    <dimen name="level_led_height">8dp</dimen>
+    <dimen name="level_led_margin">1dp</dimen>
+    <dimen name="level_led_outer_margin">4dp</dimen>
 </resources>

@@ -164,30 +164,56 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/stage_number"
         android:onClick="showMaxLevelInfo"
+        android:background="@drawable/shape_socket"
         app:layout_constraintBottom_toTopOf="@+id/continueGameButton"
-        app:layout_constraintEnd_toEndOf="@+id/continueGameButton"
-
+        app:layout_constraintStart_toStartOf="@+id/continueGameButton"
         app:layout_constraintTop_toBottomOf="@id/game_title"
         app:layout_constraintVertical_bias="0.6"
         app:srcCompat="@drawable/mask"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/functionButton"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/hp_key"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="exitActivity"
-        android:text="f"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/sevenSegmentDisplay"
-        app:layout_constraintStart_toStartOf="@+id/continueGameButton"
-        app:layout_constraintTop_toTopOf="@+id/sevenSegmentDisplay"
-        />
+    <LinearLayout
+        android:id="@+id/led_block"
+        android:layout_width="@dimen/level_led_width"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shape_socket"
+        android:layout_gravity="center_vertical"
+        android:paddingHorizontal="@dimen/level_led_outer_margin"
+        android:paddingVertical="@dimen/level_led_outer_margin"
+        app:layout_constraintTop_toTopOf="@id/sevenSegmentDisplay"
+        app:layout_constraintBottom_toBottomOf="@id/sevenSegmentDisplay"
+        app:layout_constraintEnd_toEndOf="@id/deko1"
+        >
 
+        <View android:id="@+id/led1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/level_led_height"
+            android:layout_marginVertical="@dimen/level_led_margin"
+            android:layout_marginHorizontal="@dimen/level_led_margin"
+            android:background="@android:color/black"
+            />
+        <View android:id="@+id/led2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/level_led_height"
+            android:layout_marginVertical="@dimen/level_led_margin"
+            android:layout_marginHorizontal="@dimen/level_led_margin"
+            android:background="@android:color/black"
+            />
+        <View android:id="@+id/led3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/level_led_height"
+            android:layout_marginVertical="@dimen/level_led_margin"
+            android:layout_marginHorizontal="@dimen/level_led_margin"
+            android:background="@android:color/black"
+            />
+        <View android:id="@+id/led4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/level_led_height"
+            android:layout_marginVertical="@dimen/level_led_margin"
+            android:layout_marginHorizontal="@dimen/level_led_margin"
+            android:background="@android:color/black"
+            />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

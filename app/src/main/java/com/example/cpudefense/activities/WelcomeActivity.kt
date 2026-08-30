@@ -7,12 +7,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -92,28 +93,57 @@ class WelcomeActivity : AppCompatActivity() {
         if (maxLevel.number == 0)
             displayLit = false
         when (maxLevel.series) {
-            GameMechanics.SERIES_NORMAL -> imageView.setImageBitmap(
-                display.getDisplayBitmap(
-                        maxLevel.number,
-                        SevenSegmentDisplay.LedColors.GREEN,
-                        displayLit, radix, listOf(numberOfDigits-1)
+            GameMechanics.SERIES_NORMAL -> {
+                imageView.setImageBitmap(
+                        display.getDisplayBitmap(
+                                maxLevel.number,
+                                SevenSegmentDisplay.LedColors.GREEN,
+                                displayLit, radix, listOf(numberOfDigits-1)
+                        )
                 )
-            )
-            GameMechanics.SERIES_TURBO -> imageView.setImageBitmap(
-                display.getDisplayBitmap(
-                        maxLevel.number,
-                        SevenSegmentDisplay.LedColors.YELLOW,
-                        displayLit, radix, listOf(numberOfDigits-1)
+                showSeriesWithLeds(1, Color.GREEN)
+            }
+            GameMechanics.SERIES_TURBO -> {
+                imageView.setImageBitmap(
+                        display.getDisplayBitmap(
+                                maxLevel.number,
+                                SevenSegmentDisplay.LedColors.YELLOW,
+                                displayLit, radix, listOf(numberOfDigits-1)
+                        )
                 )
-            )
-            else -> imageView.setImageBitmap(
-                display.getDisplayBitmap(
-                        maxLevel.number,
-                        SevenSegmentDisplay.LedColors.RED,
-                        displayLit, radix, listOf(numberOfDigits-1)
+                showSeriesWithLeds(2, Color.YELLOW)
+            }
+            GameMechanics.SERIES_ENDLESS -> {
+                imageView.setImageBitmap(
+                        display.getDisplayBitmap(
+                                maxLevel.number,
+                                SevenSegmentDisplay.LedColors.RED,
+                                displayLit, radix, listOf(numberOfDigits-1)
+                        )
                 )
-            )
+                showSeriesWithLeds(3, Color.RED)
+            }
         }
+        if (!displayLit)
+            showSeriesWithLeds(0, Color.BLACK)
+    }
+
+    fun showSeriesWithLeds(numberOfLedsLit: Int, ledColor: Int)
+    {
+        val ledView = findViewById<LinearLayout>(R.id.led_block)
+        val led = listOf(
+            ledView.findViewById<View>(R.id.led4),
+            ledView.findViewById<View>(R.id.led3),
+            ledView.findViewById<View>(R.id.led2),
+            ledView.findViewById<View>(R.id.led1))
+        led.forEachIndexed { i, view ->
+            if (i<numberOfLedsLit)
+                view.setBackgroundColor(ledColor)
+            else
+                view.setBackgroundColor(Color.BLACK)
+        }
+
+
     }
 
     @Suppress("UNUSED_PARAMETER")
