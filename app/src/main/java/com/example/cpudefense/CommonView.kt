@@ -78,6 +78,7 @@ abstract class CommonView(context: Context):
         const val minScoreBoardHeight = 100
         const val maxScoreBoardHeight = 320
         const val speedControlButtonSize = 48
+        const val controlPanelMargin = 8
         const val levelSnapshotIconSize = 120
 
         const val gridPointSize = 2

@@ -36,25 +36,26 @@ class CommonButtonPanel(var commonView: CommonView)
     /** the stage number (minus one) where the zoom buttons are shown for the first time */
     private val showZoomOnStage = Stage.Identifier(1, 14)
 
+    /** sets the size within the parentArea and determines the positions of the buttons */
     fun setSize(parentArea: Rect)
     {
         actualButtonSize = (CommonView.speedControlButtonSize * commonView.resources.displayMetrics.density.toInt() *
             if (commonView.settings().configUseLargeButtons) 1.6f else 1.0f).toInt()
-        val margin = actualButtonSize / 5   // space between the buttons
+        val margin = CommonView.controlPanelMargin // space between the buttons
         if (commonView.settings().zoom && commonView.gameMechanics.currentStageIdent.isGreaterThan(showZoomOnStage))
         {
             buttons.add(zoomPlusButton)
             buttons.add(zoomMinusButton)
         }
         buttons.forEach {it.setSize(actualButtonSize)}
-        areaTop = Rect(parentArea.left+margin, parentArea.top, parentArea.left+2*(actualButtonSize+margin),
+        areaTop = Rect(parentArea.left+margin, parentArea.top, parentArea.left+3*(actualButtonSize+margin),
                        parentArea.top+actualButtonSize)
         zoomPlusButton.area.setCenter(areaTop.left + actualButtonSize / 2, areaTop.centerY())
-        zoomMinusButton.area.setCenter(areaTop.right - actualButtonSize / 2, areaTop.centerY())
+        zoomMinusButton.area.setCenter(areaTop.centerX(), areaTop.centerY())
         areaBottom = Rect(areaTop.left, parentArea.bottom-margin-actualButtonSize,
                           areaTop.right, parentArea.bottom-margin)
         returnButton.area.setCenter(areaBottom.left + actualButtonSize / 2, areaBottom.centerY())
-        lockButton.area.setCenter(areaBottom.right - actualButtonSize / 2, areaBottom.centerY())
+        lockButton.area.setCenter(areaTop.right - actualButtonSize / 2, areaTop.centerY())
     }
 
     fun onDown(p0: MotionEvent): Boolean {

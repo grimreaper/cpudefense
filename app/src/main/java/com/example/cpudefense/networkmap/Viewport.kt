@@ -70,7 +70,7 @@ class Viewport
     fun reset()
     {
         offsetX = 0
-        offsetY = 0
+        offsetY = CommonView.speedControlButtonSize + 2*CommonView.controlPanelMargin
         userScale = 1.0f
         scaleHasChanged = true
     }
