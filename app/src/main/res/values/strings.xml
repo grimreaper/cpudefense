@@ -478,4 +478,5 @@ The programming language Pascal is named after him."</string>
     <string name="achievement_SHOW_HEX">Read hex values</string>
     <string name="achievement_TAP_INCREASE">Tap on an attacker and increase its value</string>
     <string name="achievement_TAP_42">Tap on an attacker with value 42</string>
+    <string name="seven_segment_clock_display">7 segment clock display</string>
 </resources>
