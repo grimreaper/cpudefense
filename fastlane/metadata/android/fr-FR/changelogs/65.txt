@@ -1,0 +1,8 @@
+Nouvelles fonctionnalités :
+- Ajout des « Succès » (32 pour le moment)
+
+Divers :
+- Améliorations du processus de compilation (merci à grimreaper)
+- Nettoyage du code
+- Version cible du SDK : 37
+

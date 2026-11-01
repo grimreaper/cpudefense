@@ -1,0 +1,8 @@
+Nuove funzionalità:
+- Introdotti gli "Obiettivi" (32 finora)
+
+Varie:
+- Miglioramenti al processo di build (grazie a grimreaper)
+- Pulizia del codice
+- Versione target dell'SDK: 37
+

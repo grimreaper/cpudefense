@@ -1,0 +1,8 @@
+New features:
+- Introduced "Achievements" (32 so far)
+
+Miscellaneous:
+- Improvements to the build process (thanks to grimreaper)
+- Code cleanup
+- SDK target version 37
+

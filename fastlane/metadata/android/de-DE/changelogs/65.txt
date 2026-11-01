@@ -1,0 +1,7 @@
+Neue Funktionen:
+- "Erfolge" eingeführt (bisher 32)
+
+Sonstiges:
+- Verbesserungen im Build-Prozess (dank grimreaper)
+- Aufräumarbeiten im Code
+- SDK Target-Version 37
